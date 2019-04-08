@@ -1,20 +1,46 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="App">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title> My AngularJS App </title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+<html lang="en" ng-app="todoApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>To Do List</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Roboto:400,700%7cMaterial+Icons" rel="stylesheet">
+  </head>
+  <body>
+    <div class="main-container">
+      <h1 class="app-title">TODO List</h1>
+      <div ng-controller="TodoController as $ctrl">
 
-  <section ng-controller="MyCtrl">
-    <h1>Build beautiful things</h1>
-  </section>
+        <p class="tag-line">A place to store the things you have to do!</p>
 
-  <script src="https://code.angularjs.org/1.7.8/angular.js"></script>
-  <script src="app.module.js"></script>
-  <script src="app.controller.js"></script>
-</body>
+        <input type="text" placeholder="Filter your to-dos" ng-model="search" class="input-box" />
+        
+        <ol class="to-do-list-container">
+          <li  ng-cloak class="to-do-list-item" ng-repeat="todo in $ctrl.todoList | filter:search" ng-class="{ 'completed' : todo.completed == true }">
+            
+            <div class="to-do-list-item-inner">
+              <div>
+                <button ng-if="todo.completed === false" id="completed" class="button-complete-task" ng-click="$ctrl.completeTask($index)">Complete</button>
+              </div>
+              <div class="to-do-list-item-content">{{ todo.task }}</div>
+              <div>
+                <i class="material-icons" id="close-button" ng-click="$ctrl.removeTask($index)">clear</i>
+              </div>
+            </div>
+          </li>
+        </ol>
+
+        <form ng-submit="$ctrl.addTask($ctrl.task)">
+          <input ng-model="$ctrl.task" type="text" placeholder="Add your to do" class="input-box">
+          <button type="submit" class="button-add-task">Add</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://code.angularjs.org/1.7.8/angular.js"></script>
+    <script src="app.module.js"></script>
+    <script src="app.controller.js"></script>
+  </body>
 </html>
