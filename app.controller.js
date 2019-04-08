@@ -1,9 +1,13 @@
 "use strict";
 function TodoController($scope) {  
   const controller = this;
-  controller.todoList = [
-    {task: 'walk the dog', 
-  completed: false, 
+
+
+
+
+controller.todoList = [
+   {task: 'walk the dog', 
+completed: false, 
 },
 {task:'Go to the store',
 completed: false 
